@@ -73,6 +73,31 @@ def closeParenthesis():
     equa = equa + ")"  # 수식에 ')' 추가
     equation.set(equa)  # 라벨 내용 업데이트
 
+# 키보드 입력 처리
+def keyPress(event):
+    global equa
+    key = event.char  # 눌린 키를 가져옵니다.
+
+    if key in "0123456789":  # 숫자 키
+        bthPress(key)
+    elif key in "+-*/":  # 연산자 키
+        bthPress(key)
+    elif key == ".":  # 소수점 키
+        btnDecimal()
+    elif key == "\r":  # Enter 키
+        EqualPress()
+    elif key == "\x08":  # Backspace 키
+        backspacePress()
+    elif key == "c" or key == "C":  # Clear 키 (C 또는 c)
+        ClearPress()
+    elif key == "(":  # 열린 괄호
+        openParenthesis()
+    elif key == ")":  # 닫힌 괄호
+        closeParenthesis()
+
+# 윈도우에 키보드 입력 이벤트 바인딩
+root.bind("<Key>", keyPress)
+
 # 계산기 버튼 생성 및 배치
 Button0 = tkt.Button(root, text="0", bg="skyblue", command=lambda: bthPress(0), height=1, width=7, borderwidth=1 ,relief=tkt.SOLID)
 Button0.grid(row=8, column=2, padx=10, pady=10)  # '0' 버튼 배치
